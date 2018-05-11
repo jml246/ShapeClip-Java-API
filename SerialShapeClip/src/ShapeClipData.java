@@ -8,17 +8,25 @@ import java.util.ArrayList;
  * @date 03/04/2018
  */
 class ShapeClipData {
-    private ArrayList<ShapeClipData> shapeClipArray;
     private int red,green,blue,height;
 
     /**
      * Constructor for class
      */
-    public ShapeClipData()
+    public ShapeClipData(int red,int green,int blue,int height)
     {
-        shapeClipArray = new ArrayList<ShapeClipData>();
+      this.blue = blue;
+      this.red = red;
+      this.green = green;
+      this.height = height;
         
     }
+    public ShapeClipData()
+    {
+      
+        
+    }
+    
     /**
      * Getter for red colour
      * @return red
@@ -39,11 +47,7 @@ class ShapeClipData {
      * @return height
      */
     public int getHeight(){return height;}
-    /**
-     * Gets the arraylist variable shapeClipArray
-     * @return shapeClipArray
-     */
-    public ArrayList getShapeClipArray(){return shapeClipArray;}
+
     /**
      * Setter for red
      * @param red 
@@ -72,59 +76,16 @@ class ShapeClipData {
      * @return boolean 
      */
     public boolean checkColourRange(int col){
-        if(col > 0 && col <= 255){return true;}else{return false;}
+        if(col >= 0 && col <= 255){return true;}else{return false;}
     }
     /**
      * Check the height range and value exist
      * @param col
-     * @return 
+     * @return boolean
      */
-    public boolean checkHeightRange(int col){
-        if(col > 0 && col <= 470){return true;}else{return false;}
+    public boolean checkHeightRange(int height){
+        if(height >= 0 && height <= 470){return true;}else{return false;}
     }
 
-    
-    /**
-     * Add a shapeclip element once it has passed checks
-     * 
-     * @param red
-     * @param green
-     * @param blue
-     * @param height
-     * @return 
-     */
-    public boolean addElement(int red,int green,int blue,int height)
-    {
-        if((checkColourRange(red) &&
-        checkColourRange(green) &&
-        checkColourRange(blue) &&
-        checkColourRange(height)))
-        {
-            this.setRed(red);
-            this.setGreen(green);
-            this.setBlue(blue);
-            this.setHeight(height);
-            shapeClipArray.add(this);
-            return true;
-        }else{
-            return false;
-        }
-        
-        
-       
-    }
-/**
- * Converts the elements of the shapecliparray and returns them as a string 
- * representation so that it can be sent to the shapeclip
- * @return str
- */
-    public String getShapeClipArrayString()
-    {
-        String str = "F";
-        for(ShapeClipData scd : shapeClipArray){
-            str += scd.getRed()+","+scd.getGreen()+","+scd.getBlue()+","+scd.getHeight()+"X";
-        }
-        return str;
-    }
-    
 }
+

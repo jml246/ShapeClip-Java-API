@@ -24,33 +24,34 @@ import javax.imageio.ImageIO;
 public class ConvertImage extends Component {
 
       
-  public ConvertImage(String img,ShapeClipData arr) throws IOException {
+  public ConvertImage(String img,ShapeClipBoard sb, ShapeClipData sd) throws IOException {
       
       // get the BufferedImage, using the ImageIO class
 
       BufferedImage image;
       image = ImageIO.read(this.getClass().getResource(img));
-      marchThroughImage(image, arr);
+      marchThroughImage(image, sb, sd);
 
   }
   /**
    * Adds a shapeclip element with RGBH values
    * @param pixel 
    */
-  public void printPixelARGB(int pixel, ShapeClipData arr) {
+  public void printPixelARGB(int pixel, ShapeClipBoard sb) {
     int alpha = (pixel >> 24) & 0xff;
     int red = (pixel >> 16) & 0xff;
     int green = (pixel >> 8) & 0xff;
     int blue = (pixel) & 0xff;
-    //System.out.println("argb: " + alpha + ", " + red + ", " + green + ", " + blue);
-    arr.addElement(red, green, blue, alpha);
+    
+    System.out.println("argb: " + alpha + ", " + red + ", " + green + ", " + blue);
+    sb.addElement(new ShapeClipData(red, green, blue, alpha));
   }
 /**
  * Takes an image and loops through width and height of each pixel converting them
  * to RGB. We use the alpha value to give it height.
  * @param image 
  */
-  private void marchThroughImage(BufferedImage image, ShapeClipData arr) {
+  private void marchThroughImage(BufferedImage image, ShapeClipBoard sb, ShapeClipData sd) {
     int w = image.getWidth();
     int h = image.getHeight();
    
@@ -61,7 +62,7 @@ public class ConvertImage extends Component {
      
         System.out.println("Processing Co-ordinate pixels x,y: " + j + ", " + i + " " + (float) ((i/h)*100) + "%");
         int pixel = image.getRGB(j, i);
-        printPixelARGB(pixel, arr);
+        printPixelARGB(pixel, sb);
         //
       }
     }

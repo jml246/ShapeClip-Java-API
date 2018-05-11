@@ -20,29 +20,33 @@ public class Driver implements ShapeClipAPI{
     public static void main(String[] args) throws IOException {
         //Example usage to send data to a shapeClip
         SerialShapeClip sh;
-        ShapeClipData sd = new ShapeClipData();
+        
         sh = new SerialShapeClip();
     
         //we open the port
         sh.shapeClipOpen();
-        
-        //create a new shapclipdata object 
-        ShapeClipData scd = new ShapeClipData();
+        ShapeClipBoard sb = new ShapeClipBoard();
+
         //create a new element with values - if inputs are fine, then it will add 
         // the new element and print ok
-        if(sd.addElement(25, 25, 25, 100)){System.out.println("OK");};
-        //print out our array into a string
-        System.out.println(sd.getShapeClipArrayString());
+         if(sb.addElement(new ShapeClipData(25,10,255,350))){System.out.println("OK");}else{System.out.println("Error");};
+        if(sb.addElement(new ShapeClipData(25,255,70,75))){System.out.println("OK");}else{System.out.println("Error");};
+
+       //print out our array into a string
+        //System.out.println(sd.getShapeClipArrayString());
         //pass the array as a string and send it via serial comms
-        sh.shapeClipSend(sd.getShapeClipArrayString());
+       // sh.shapeClipSend(sd.getShapeClipArrayString());
         
          //Process an image and send it off to the shapeclip
         //sh.shapeClipSend(sh.shapeClipProcessImage("1x8.png"));
        
         
         //if you want more access to an image use the ConvertImage object
-        new ConvertImage("1x8.png",sd);
-        System.out.println(sd.getShapeClipArrayString());
+        //new ConvertImage("1x8.png",sb,sd);
+        //new ConvertImage("red_blue.png",sd);
+        //new ConvertImage("3x3.gif",sd);
+        sh.shapeClipSend(sb.getShapeClipArrayString());
+        System.out.println(sb.getShapeClipArrayString());
         
         //close the shapeclip
         sh.shapeClipClose();
